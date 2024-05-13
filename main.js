@@ -24,9 +24,9 @@ const firebaseConfig = {
 // Inisialisasi Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
-export async function ambilDaftarPembeli() {
-  const refDokumen = collection(db, "pembeli");
+//fungsi untuk menampilkan data
+export async function ambilDaftarPenjual() {
+  const refDokumen = collection(db, "penjual");
   const kueri = query(refDokumen, orderBy("nama"));
   const cuplikanKueri = await getDocs(kueri);
 
@@ -36,6 +36,7 @@ export async function ambilDaftarPembeli() {
       id: dok.id,
       nama: dok.data().nama,
       alamat: dok.data().alamat,
+      gmail: dok.data().gmail,
       noTlpn: dok.data().noTlpn,
     });
   });
@@ -48,12 +49,13 @@ export async function ambilDaftarPembeli() {
 export function formatAngka(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 }
-
-export async function tambahPembeli(nama, alamat, noTlpn) {
+//fungsi untuk menambahkan data
+export async function tambahPenjual(nama, alamat, gmail, noTlpn) {
   try {
-    const dokRef = await addDoc(collection(db, 'pembeli'), {
+    const dokRef = await addDoc(collection(db, 'penjual'), {
       nama: nama,
       alamat: alamat,
+      gmail: gmail,
       noTlpn: noTlpn
     });
     console.log('berhasil menembah produk ' + dokRef.id);
@@ -61,21 +63,22 @@ export async function tambahPembeli(nama, alamat, noTlpn) {
     console.log('gagal menambah produk ' + e);
   }
 }
-
-export async function hapusPembeli(docId) {
-  await deleteDoc(doc(db, "pembeli", docId));
+//fungsi untuk hapus data
+export async function hapusPenjual(docId) {
+  await deleteDoc(doc(db, "penjual", docId));
 }
-
-export async function ubahPembeli(docId, nama, alamat, noTlpn) {
-  await updateDoc(doc(db, "pembeli", docId), {
+//fungsi untuk ubah data
+export async function ubahPenjual(docId, nama, alamat, gmail, noTlpn) {
+  await updateDoc(doc(db, "penjual", docId), {
     nama: nama,
     alamat: alamat,
+    gmail: gmail,
     noTlpn: noTlpn
   });
 }
-
-export async function ambilPembeli(docId) {
-  const docRef = await doc(db, "pembeli", docId);
+//fungsi untuk ambil data dan untuk diubah
+export async function ambilPenjual(docId) {
+  const docRef = await doc(db, "penjual", docId);
   const docSnap = await getDoc(docRef);
 
   return await docSnap.data();
