@@ -24,6 +24,7 @@ const firebaseConfig = {
 // Inisialisasi Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+
 //fungsi untuk menampilkan data
 export async function ambilDaftarPenjual() {
   const refDokumen = collection(db, "penjual");
@@ -45,6 +46,7 @@ export async function ambilDaftarPenjual() {
 
   return hasil;
 }
+//################$#######
 
 export function formatAngka(x) {
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
@@ -63,6 +65,7 @@ export async function tambahPenjual(nama, alamat, gmail, noTlpn) {
     console.log('gagal menambah produk ' + e);
   }
 }
+//#####################
 //fungsi untuk hapus data
 export async function hapusPenjual(docId) {
   await deleteDoc(doc(db, "penjual", docId));
