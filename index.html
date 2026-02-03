@@ -120,3 +120,74 @@
 </body>
 
 </html>
+<html>
+<head>
+    <title>setok opname</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        table {
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+        }
+             
+   
+    </style>
+</head>
+<body>
+    <h1>setok opname</h1>
+    <form id="form-kasir">
+        <label>Nama Barang:</label>
+        <input type="text" id="nama-barang" />
+        <br />
+        <label>Harga:</label>
+        <input type="number" id="harga" />
+        <br />
+        <label>Jumlah:</label>
+        <input type="number" id="jumlah" />
+        <br />
+        <button type="button" onclick="tambahBarang()">Tambah Barang</button>
+    </form>
+    <table id="tabel-kasir">
+        <thead>
+            <tr>
+                <th>Nama Barang</th>
+                <th>Harga</th>
+                <th>Jumlah</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody id="body-tabel">
+        </tbody>
+    </table>
+    <p>Total Bayar: <span id="total-bayar">0</span></p>
+
+    <script>
+        let totalBayar = 0;
+        function tambahBarang() {
+            const namaBarang = document.getElementById('nama-barang').value;
+            const harga = parseInt(document.getElementById('harga').value);
+            const jumlah = parseInt(document.getElementById('jumlah').value);
+            const total = harga * jumlah;
+            totalBayar += total;
+
+            const tabelBody = document.getElementById('body-tabel');
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${namaBarang}</td>
+                <td>${harga}</td>
+                <td>${jumlah}</td>
+                <td>${total}</td>
+            `;
+            tabelBody.appendChild(row);
+
+            document.getElementById('total-bayar').innerText = totalBayar;
+            document.getElementById('form-kasir').reset();
+
+        }
+    </script>
+</body>
